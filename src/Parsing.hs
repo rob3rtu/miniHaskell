@@ -51,7 +51,7 @@ letExp = do
     c1 <- expr
     reserved miniHs "in"
     c2 <- expr
-    return $ let v c1 c2
+    return $ Let v c1 c2
 
 -- >>> testParse letExp "let x := y in z"
 -- Let (Var {getVar = "x"}) (CX (Var {getVar = "y"})) (CX (Var {getVar = "z"}))
@@ -64,12 +64,12 @@ letrecExp = do
     c1 <- expr
     reserved miniHs "in"
     c2 <- expr
-    return $ let v c1 c2
+    return $ Let v c1 c2
 -- >>> testParse letrecExp "letrec x := y in z"
 -- LetRec (Var {getVar = "x"}) (CX (Var {getVar = "y"})) (CX (Var {getVar = "z"}))
 
 listExp :: Parser ComplexExp
-listExp = List <$> brackets miniHs (comaSep miniHs expr)
+listExp = List <$> brackets miniHs (commaSep miniHs expr)
 -- >>> ghci> testParse listExp "[a,b,c]"
 -- List [CX (Var {getVar = "a"}),CX (Var {getVar = "b"}),CX (Var {getVar = "c"})]
 
