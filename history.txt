@@ -1,0 +1,7 @@
+:l
+:l asd
+\\x -> x
+23
++ 23
+:q
+let x := x in x + x
